@@ -44,6 +44,13 @@ class Anketa:
             if "Заполнить анкету" in btn.text:
                 btn.click()
 
+    def __set_element_by_js(self, type_elem, elem, val):
+        self.driver.execute_script(
+                                    "arguments[0].value = arguments[1]",
+                                    self.driver.find_element(type_elem, elem),
+                                    val
+                                   )    
+    
     def fill_page1(self):
         self.driver.find_element(By.NAME, "surname").send_keys(const.surname)
         self.driver.find_element(By.NAME, "name").send_keys(const.name)
@@ -52,16 +59,8 @@ class Anketa:
         self.driver.find_element(By.NAME, "adress_registration").send_keys(const.adress_registration)
         self.driver.find_element(By.NAME, "adress_residence").send_keys(const.adress_registration)
         self.driver.find_element(By.NAME, "email").send_keys(const.email)
-        phone_el = self.driver.find_element(By.NAME, "phone")
-        phone_el.click()
-        for i in range(9):
-            phone_el.send_keys(Keys.CONTROL, 'LEFT')
-        phone_el.send_keys(const.phone)
-        self.driver.execute_script(
-                                    "arguments[0].value = arguments[1]",
-                                    self.driver.find_element(By.ID, "id_birthday"),
-                                    const.birthday
-                                   )
+        self.__set_element_by_js(By.ID, "id_phone", const.phone) # +7(999)999-99-99
+        self.__set_element_by_js(By.ID, "id_birthday", const.birthday)
 
 
 vac = Anketa(test_name)
