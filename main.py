@@ -57,9 +57,11 @@ class Anketa:
         for i in range(9):
             phone_el.send_keys(Keys.CONTROL, 'LEFT')
         phone_el.send_keys(const.phone)
-        bd_el = self.driver.find_element(By.NAME, "birthday")
-        self.driver.execute_script("arguments[0].value = arguments[1]", bd_el, const.birthday)
-
+        self.driver.execute_script(
+                                    "arguments[0].value = arguments[1]",
+                                    self.driver.find_element(By.ID, "id_birthday"),
+                                    const.birthday
+                                   )
 
 
 vac = Anketa(test_name)
