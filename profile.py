@@ -130,6 +130,8 @@ def send_my_profile_for(job_name):
     profile = Profile(job_name)
     profile.fill()
     profile.send()
-    profile.driver.save_screenshot(pic)
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)), pic)
+    return profile.driver.find_element(By.CLASS_NAME, "title").text
 
+
+if __name__ == "__main__":
+    send_my_profile_for("Инженер - программист отдела разработки и технического оснащения")
